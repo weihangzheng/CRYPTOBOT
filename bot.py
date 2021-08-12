@@ -87,11 +87,11 @@ def check_buy_sell_signals(df, coin, pair, minTrade, netBuy, balances):
     if not df['in_uptrend'][previous_row_index] and df['in_uptrend'][last_row_index]:
         print("changed to uptrend, buy")
         if not in_position:
-            if(int(balances['USDT']) > minTrade['USDT']):
+            if(float(balances['USDT']) > minTrade['USDT']):
                 order = exchange.create_market_buy_order(pair, minTrade[coin])
                 print(order)
             else:
-                print("insufficient funds")
+                print("Insufficient funds!")
             netBuy[coin] += 1
             in_position = True
         else:
@@ -100,11 +100,11 @@ def check_buy_sell_signals(df, coin, pair, minTrade, netBuy, balances):
     if df['in_uptrend'][previous_row_index] and not df['in_uptrend'][last_row_index]:
         if in_position:
             print("changed to downtrend, sell")
-            if(int(balances[coin]) > minTrade[coin]):
+            if(float(balances[coin]) > minTrade[coin]):
                 order = exchange.create_market_sell_order(pair, minTrade[coin])
                 print(order)
             else:
-                print("insufficient funds")
+                print("Insufficient funds!")
             netBuy[coin] -= 1
             in_position = False
         else:
@@ -118,9 +118,12 @@ def run_bot(threadNum, coinIdx, minTrade, netBuy):
         balances[key] = dict2[value]['free']
     print("BALANCES :: ", balances)
     print("NET BUY :: ", netBuy)
+
     coin = list(coinIdx.keys())[threadNum]
+
     pair = coin + '/' + 'USDT'
     print(coin)
+
     bars = exchange.fetch_ohlcv(pair, timeframe='1m', limit=100)
     df = pd.DataFrame(bars[:-1], columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
     df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
