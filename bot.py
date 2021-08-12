@@ -18,7 +18,7 @@ exchange = ccxt.binance({
 
 #first key is the stablecoin
 coinIdx = {'USDT': 0, 'BTC': 0, 'ETH': 0, 'DOGE': 0, 'BCH': 0}
-minTrade = {'USDT': 20, 'BTC': 0.005, 'ETH': 0.01, 'DOGE': 100, 'BCH': 0.05}
+minTrade = {'USDT': 20, 'BTC': 0.0005, 'ETH': 0.01, 'DOGE': 100, 'BCH': 0.05}
 netBuy = {'BTC': 0, 'ETH': 0, 'DOGE': 0, 'BCH': 0}
 
 dict1 = exchange.fetchBalance()
