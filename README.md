@@ -1,2 +1,3 @@
 # CRYPTOBOT
-super trend Crypto trading bot inspired by hackingthemarkets
+Super trend Crypto trading bot for Binance inspired by hackingthemarkets.
+Enter your own API and Secret Key in the config file.
