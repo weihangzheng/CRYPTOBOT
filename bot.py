@@ -17,9 +17,9 @@ exchange = ccxt.binance({
 })
 
 #first key is the stablecoin
-coinIdx = {'USDT': 0, 'BTC': 0, 'ETH': 0, 'DOGE': 0}
-minTrade = {'USDT': 20, 'BTC': 0.003, 'ETH': 0.01, 'DOGE': 100}
-netBuy = {'BTC': 0, 'ETH': 0, 'DOGE': 0}
+coinIdx = {'USDT': 0, 'BTC': 0, 'ETH': 0, 'DOGE': 0, 'BCH': 0}
+minTrade = {'USDT': 20, 'BTC': 0.005, 'ETH': 0.01, 'DOGE': 100, 'BCH': 0.05}
+netBuy = {'BTC': 0, 'ETH': 0, 'DOGE': 0, 'BCH': 0}
 
 dict1 = exchange.fetchBalance()
 dict2 = dict1['info']['balances']
@@ -133,9 +133,10 @@ def run_bot(threadNum, coinIdx, minTrade, netBuy):
     check_buy_sell_signals(supertrend_data, coin, pair, minTrade, netBuy, balances)
 
 threadNum = 1
+maxThread = len(coinIdx)
 while True:
     run_bot(threadNum, coinIdx, minTrade, netBuy)
     threadNum += 1
-    if(threadNum == 4):
+    if(threadNum == maxThread):
         threadNum = 1
     time.sleep(10)
