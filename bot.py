@@ -87,7 +87,7 @@ def check_buy_sell_signals(df, coin, pair, minTrade, netBuy, balances):
     if not df['in_uptrend'][previous_row_index] and df['in_uptrend'][last_row_index]:
         print("changed to uptrend, buy")
         if not in_position:
-            if(balances['USDT'] > minTrade['USDT']):
+            if(int(balances['USDT']) > minTrade['USDT']):
                 order = exchange.create_market_buy_order(pair, minTrade[coin])
                 print(order)
             else:
@@ -100,7 +100,7 @@ def check_buy_sell_signals(df, coin, pair, minTrade, netBuy, balances):
     if df['in_uptrend'][previous_row_index] and not df['in_uptrend'][last_row_index]:
         if in_position:
             print("changed to downtrend, sell")
-            if(balances[coin] > minTrade[coin]):
+            if(int(balances[coin]) > minTrade[coin]):
                 order = exchange.create_market_sell_order(pair, minTrade[coin])
                 print(order)
             else:
