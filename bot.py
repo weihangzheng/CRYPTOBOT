@@ -76,7 +76,7 @@ def supertrend(df, period=7, atr_multiplier=3):
 
 in_position = False
 
-def check_buy_sell_signals(df, coin, pair, minTrade, netBuy):
+def check_buy_sell_signals(df, coin, pair, minTrade, netBuy, balances):
     global in_position
 
     print("checking for buy and sell signals")
@@ -127,7 +127,7 @@ def run_bot(threadNum, coinIdx, minTrade, netBuy):
 
     supertrend_data = supertrend(df)
  
-    check_buy_sell_signals(supertrend_data, coin, pair, minTrade, netBuy)
+    check_buy_sell_signals(supertrend_data, coin, pair, minTrade, netBuy, balances)
 
 threadNum = 1
 while True:
